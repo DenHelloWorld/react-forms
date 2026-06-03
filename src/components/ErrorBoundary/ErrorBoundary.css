@@ -1,0 +1,30 @@
+@reference "../../index.css";
+
+.error-boundary {
+    @apply flex min-h-screen items-center justify-center bg-bg p-8;
+}
+
+.error-boundary__card {
+    @apply w-full max-w-lg rounded-xl border border-accent-border bg-bg p-8 text-center shadow-custom;
+}
+
+.error-boundary__icon {
+    @apply mx-auto mb-4 h-16 w-16;
+    color: var(--accent-secondary);
+}
+
+.error-boundary__title {
+    @apply mb-2 text-2xl font-bold font-heading text-text-h;
+}
+
+.error-boundary__message {
+    @apply mb-6 text-text;
+}
+
+.error-boundary__details {
+    @apply mb-6 max-h-32 overflow-auto rounded-lg bg-code-bg p-4 text-left font-mono text-sm text-text;
+}
+
+.error-boundary__btn {
+    @apply cursor-pointer rounded bg-accent-secondary px-6 py-2 text-white hover:opacity-90;
+}
