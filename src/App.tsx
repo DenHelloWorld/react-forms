@@ -1,23 +1,70 @@
+import { useState } from 'react';
+import Modal from './ui/Modal/Modal.tsx';
+import './App.css';
+
 const App = () => {
+  const [isUncontrolledOpen, setIsUncontrolledOpen] = useState(false);
+  const [isRHFOpen, setIsRHFOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-bg text-text p-8">
-      <h1 className="text-3xl font-heading text-text-h font-bold">
-        React Forms
-      </h1>
-      <div className="mt-4 flex gap-2">
+    <div className="page">
+      <h1 className="page__title">React Forms</h1>
+      <div className="buttons-row">
         <button
           type="button"
-          className="cursor-pointer rounded bg-accent px-4 py-2 text-white hover:opacity-90"
+          onClick={() => {
+            setIsUncontrolledOpen(true);
+          }}
+          className="btn--secondary"
         >
           Uncontrolled Form
         </button>
         <button
           type="button"
-          className="cursor-pointer rounded border border-accent-border bg-accent-bg px-4 py-2 text-accent hover:bg-accent hover:text-white"
+          onClick={() => {
+            setIsRHFOpen(true);
+          }}
+          className="btn--secondary"
         >
           React Hook Form
         </button>
       </div>
+
+      <Modal
+        isOpen={isUncontrolledOpen}
+        onClose={() => {
+          setIsUncontrolledOpen(false);
+        }}
+      >
+        <p className="text-body">Uncontrolled Form — тестовое содержимое</p>
+        <button
+          type="button"
+          onClick={() => {
+            setIsUncontrolledOpen(false);
+          }}
+          className="btn"
+        >
+          Закрыть
+        </button>
+      </Modal>
+
+      <Modal
+        isOpen={isRHFOpen}
+        onClose={() => {
+          setIsRHFOpen(false);
+        }}
+      >
+        <p className="text-body">React Hook Form — тестовое содержимое</p>
+        <button
+          type="button"
+          onClick={() => {
+            setIsRHFOpen(false);
+          }}
+          className="btn"
+        >
+          Закрыть
+        </button>
+      </Modal>
     </div>
   );
 };

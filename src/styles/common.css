@@ -1,0 +1,23 @@
+.page {
+  @apply min-h-screen bg-bg text-text p-8;
+
+  .page__title {
+    @apply text-3xl font-heading text-text-h font-bold;
+  }
+}
+
+.text-body {
+    @apply mb-4 text-text;
+}
+
+.btn {
+  @apply cursor-pointer rounded bg-accent px-4 py-2 text-white hover:opacity-90;
+}
+
+.btn--secondary {
+  @apply cursor-pointer rounded border border-accent-border bg-accent-bg px-4 py-2 text-accent hover:bg-accent hover:text-white;
+}
+
+.btn--accent {
+  @apply cursor-pointer rounded bg-accent-secondary px-4 py-2 text-white hover:opacity-90;
+}
