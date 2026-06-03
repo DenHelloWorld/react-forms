@@ -35,17 +35,17 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
       {...backdropProps}
       role="dialog"
       aria-modal="true"
-      className="modal-backdrop"
+      className="modal__backdrop"
     >
-      <div className="modal-container">
-        <header className="modal-header">
+      <div className="modal__container">
+        <header className="modal__header">
           <button
             aria-label="Close"
             onClick={onClose}
-            className="modal-close-btn"
+            className="modal__close-btn"
           >
             <svg
-              className="modal-close-icon"
+              className="modal__close-icon"
               role="presentation"
               aria-hidden="true"
             >

@@ -1,21 +1,21 @@
 @reference "../../index.css";
 
-.modal-backdrop {
+.modal__backdrop {
   @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50;
 }
 
-.modal-container {
+.modal__container {
   @apply w-full max-w-md rounded-xl bg-bg p-6 shadow-custom;
 }
 
-.modal-header {
+.modal__header {
   @apply mb-4 flex items-center justify-end;
 }
 
-.modal-close-btn {
+.modal__close-btn {
   @apply cursor-pointer rounded p-1 text-text hover:bg-border hover:text-text-h;
 }
 
-.modal-close-icon {
+.modal__close-icon {
   @apply h-5 w-5;
 }
