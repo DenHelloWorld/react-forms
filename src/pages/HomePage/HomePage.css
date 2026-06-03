@@ -1,0 +1,9 @@
+@reference "../../index.css";
+
+.buttons-row {
+    @apply mt-4 flex gap-2;
+}
+
+.text-body {
+    @apply mb-4 text-text;
+}

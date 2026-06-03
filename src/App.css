@@ -1,5 +1,0 @@
-@reference "./index.css";
-
-.buttons-row {
-  @apply mt-4 flex gap-2;
-}
