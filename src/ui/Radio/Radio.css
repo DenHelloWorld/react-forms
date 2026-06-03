@@ -1,0 +1,22 @@
+@reference "../../index.css";
+
+.radio__input {
+  @apply sr-only;
+}
+
+.radio__circle {
+  @apply inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-border bg-bg transition-colors;
+}
+
+.radio__input:checked + .radio__circle {
+  @apply border-accent;
+}
+
+.radio__input:checked + .radio__circle::after {
+  content: '';
+  @apply block h-3 w-3 rounded-full bg-accent;
+}
+
+.radio__input:focus-visible + .radio__circle {
+  @apply border-accent;
+}

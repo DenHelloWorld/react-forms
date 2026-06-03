@@ -1,0 +1,25 @@
+@reference "../../index.css";
+
+.checkbox__label {
+  @apply inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded border-2 border-border bg-bg transition-colors;
+}
+
+.checkbox__label:hover {
+  @apply border-accent;
+}
+
+.checkbox__label:has(.checkbox__input:checked) {
+  @apply border-accent bg-accent text-white;
+}
+
+.checkbox__input {
+  @apply sr-only;
+}
+
+.checkbox__icon {
+  @apply hidden h-4 w-4;
+}
+
+.checkbox__input:checked + .checkbox__icon {
+  @apply block;
+}

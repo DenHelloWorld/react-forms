@@ -14,6 +14,10 @@
   @apply cursor-pointer rounded bg-accent px-4 py-2 text-white hover:opacity-90;
 }
 
+.btn:disabled {
+  @apply cursor-not-allowed opacity-50;
+}
+
 .btn--secondary {
   @apply cursor-pointer rounded border border-accent-border bg-accent-bg px-4 py-2 text-accent hover:bg-accent hover:text-white;
 }
