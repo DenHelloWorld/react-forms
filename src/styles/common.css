@@ -7,7 +7,7 @@
 }
 
 .text-body {
-    @apply mb-4 text-text;
+  @apply mb-4 text-text;
 }
 
 .btn {
