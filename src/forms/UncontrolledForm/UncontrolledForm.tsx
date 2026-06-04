@@ -1,5 +1,5 @@
 import { useState, type SyntheticEvent } from 'react';
-import { useFormStore } from '../../store/useFormStore.ts';
+import { type FormSubmissionPayload } from '../../store/useFormStore.ts';
 import {
   basicFormSchema,
   createFieldIds,
@@ -11,18 +11,17 @@ import { GENDERS } from '../../consts/genders.const.ts';
 import '../../forms/form.css';
 
 interface UncontrolledFormProps {
-  onSuccess: () => void;
+  onSubmit: (data: FormSubmissionPayload) => void;
 }
 
 const FIELD_IDS = createFieldIds('uc');
 
-const UncontrolledForm = ({ onSuccess }: UncontrolledFormProps) => {
-  const addSubmission = useFormStore((state) => state.addSubmission);
+const UncontrolledForm = ({ onSubmit }: UncontrolledFormProps) => {
   const [errors, setErrors] = useState<
     Partial<Record<keyof BasicFormData, string>>
   >({});
 
-  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+  const onHandleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -56,9 +55,7 @@ const UncontrolledForm = ({ onSuccess }: UncontrolledFormProps) => {
       return;
     }
 
-    setErrors({});
-
-    addSubmission({
+    onSubmit({
       name: result.data.name,
       age: result.data.age,
       email: result.data.email,
@@ -67,12 +64,12 @@ const UncontrolledForm = ({ onSuccess }: UncontrolledFormProps) => {
       image: '',
     });
 
+    setErrors({});
     form.reset();
-    onSuccess();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form" noValidate>
+    <form onSubmit={onHandleSubmit} className="form" noValidate>
       <div className="form__field">
         <label htmlFor={FIELD_IDS.name} className="form__label">
           Name

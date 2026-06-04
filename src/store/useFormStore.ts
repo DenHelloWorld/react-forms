@@ -16,10 +16,12 @@ interface CountryObject {
   flag: string;
 }
 
+export type FormSubmissionPayload = Omit<SubmissionData, 'id' | 'createdAt'>;
+
 interface FormState {
   successfulSubmissions: SubmissionData[];
   countries: CountryObject[];
-  addSubmission: (data: Omit<SubmissionData, 'id' | 'createdAt'>) => void;
+  addSubmission: (data: FormSubmissionPayload) => void;
 }
 
 export const useFormStore = create<FormState>((set) => ({

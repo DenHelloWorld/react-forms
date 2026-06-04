@@ -1,6 +1,6 @@
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormStore } from '../../store/useFormStore.ts';
+import { type FormSubmissionPayload } from '../../store/useFormStore.ts';
 import Checkbox from '../../ui/Checkbox/Checkbox.tsx';
 import Radio from '../../ui/Radio/Radio.tsx';
 import {
@@ -13,14 +13,12 @@ import '../../forms/form.css';
 import { type BaseSyntheticEvent } from 'react';
 
 interface ReactHookFormProps {
-  onSuccess: () => void;
+  onSubmit: (data: FormSubmissionPayload) => void;
 }
 
 const FIELD_IDS = createFieldIds('rhf');
 
-const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
-  const addSubmission = useFormStore((state) => state.addSubmission);
-
+const ReactHookForm = ({ onSubmit }: ReactHookFormProps) => {
   const {
     register,
     handleSubmit,
@@ -38,7 +36,7 @@ const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
   });
 
   const onValid: SubmitHandler<BasicFormData> = (data) => {
-    addSubmission({
+    onSubmit({
       name: data.name,
       age: data.age,
       email: data.email,
@@ -48,10 +46,9 @@ const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
     });
 
     reset();
-    onSuccess();
   };
 
-  const onSubmit = (e: BaseSyntheticEvent) => {
+  const onHandleSubmit = (e: BaseSyntheticEvent) => {
     void handleSubmit(onValid)(e);
   };
 
@@ -65,7 +62,7 @@ const ReactHookForm = ({ onSuccess }: ReactHookFormProps) => {
     v === '' ? undefined : Number(v);
 
   return (
-    <form onSubmit={onSubmit} className="form" noValidate>
+    <form onSubmit={onHandleSubmit} className="form" noValidate>
       <div className="form__field">
         <label htmlFor={FIELD_IDS.name} className="form__label">
           Name
