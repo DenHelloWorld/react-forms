@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import UncontrolledFormModal from '../../forms/UncontrolledForm/UncontrolledFormModal.tsx';
 import ReactHookFormModal from '../../forms/ReactHookForm/ReactHookFormModal.tsx';
+import SubmissionList from '../../components/SubmissionList/SubmissionList.tsx';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -30,6 +31,8 @@ const HomePage = () => {
           React Hook Form
         </button>
       </div>
+
+      <SubmissionList />
 
       <UncontrolledFormModal
         isOpen={isUncontrolledOpen}
