@@ -2,6 +2,14 @@ import * as yup from 'yup';
 import { useFormStore } from '../store/useFormStore';
 import { basicFormSchema, BASIC_FIELD_KEYS } from './basic-form-schema.ts';
 
+const matchesPassword = (
+  value: string | undefined,
+  ctx: yup.TestContext
+): boolean => {
+  const { password } = ctx.parent as { password: string };
+  return value === password;
+};
+
 export const advancedFormSchema = basicFormSchema.concat(
   yup.object({
     country: yup
@@ -25,7 +33,7 @@ export const advancedFormSchema = basicFormSchema.concat(
     confirmPassword: yup
       .string()
       .required('Please confirm your password')
-      .oneOf([yup.ref('password')], 'Passwords do not match'),
+      .test('passwords-match', 'Passwords do not match', matchesPassword),
     image: yup
       .mixed<File>()
       .required('Image is required')

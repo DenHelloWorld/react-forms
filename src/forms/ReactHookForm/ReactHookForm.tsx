@@ -6,6 +6,7 @@ import Radio from '../../ui/Radio/Radio.tsx';
 import {
   basicFormSchema,
   createFieldIds,
+  setAsNumber,
   type BasicFormData,
 } from '../basic-form-schema.ts';
 import { GENDERS } from '../../consts/genders.const.ts';
@@ -52,16 +53,6 @@ const ReactHookForm = ({ onSubmit }: ReactHookFormProps) => {
     void handleSubmit(onValid)(e);
   };
 
-  const isTouchedWithError = (field: keyof BasicFormData) => !!errors[field];
-
-  const fieldError = (field: keyof BasicFormData) => ({
-    className: `form__input${isTouchedWithError(field) ? ' form__input--error' : ''}`,
-    'aria-invalid': isTouchedWithError(field),
-    'aria-describedby': isTouchedWithError(field)
-      ? `${FIELD_IDS[field]}-error`
-      : undefined,
-  });
-
   return (
     <form onSubmit={onHandleSubmit} className="form" noValidate>
       <div className="form__fields">
@@ -73,7 +64,11 @@ const ReactHookForm = ({ onSubmit }: ReactHookFormProps) => {
             id={FIELD_IDS.name}
             type="text"
             autoComplete="name"
-            {...fieldError('name')}
+            className={`form__input${errors.name ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.name}
+            aria-describedby={
+              errors.name ? `${FIELD_IDS.name}-error` : undefined
+            }
             {...register('name')}
           />
           <p
@@ -93,8 +88,12 @@ const ReactHookForm = ({ onSubmit }: ReactHookFormProps) => {
             id={FIELD_IDS.age}
             type="number"
             min="0"
-            {...fieldError('age')}
-            {...register('age')}
+            className={`form__input${errors.age ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.age}
+            aria-describedby={errors.age ? `${FIELD_IDS.age}-error` : undefined}
+            {...register('age', {
+              setValueAs: setAsNumber as (v: unknown) => unknown,
+            })}
           />
           <p
             id={`${FIELD_IDS.age}-error`}
@@ -113,7 +112,11 @@ const ReactHookForm = ({ onSubmit }: ReactHookFormProps) => {
             id={FIELD_IDS.email}
             type="email"
             autoComplete="email"
-            {...fieldError('email')}
+            className={`form__input${errors.email ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.email}
+            aria-describedby={
+              errors.email ? `${FIELD_IDS.email}-error` : undefined
+            }
             {...register('email')}
           />
           <p
@@ -155,6 +158,10 @@ const ReactHookForm = ({ onSubmit }: ReactHookFormProps) => {
                   name={field.name}
                   checked={field.value}
                   onChange={field.onChange}
+                  aria-invalid={!!errors.terms}
+                  aria-describedby={
+                    errors.terms ? `${FIELD_IDS.terms}-error` : undefined
+                  }
                 />
               )}
             />

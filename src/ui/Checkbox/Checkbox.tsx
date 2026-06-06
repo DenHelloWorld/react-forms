@@ -1,23 +1,11 @@
-import { type ChangeEvent } from 'react';
+import { type InputHTMLAttributes } from 'react';
 import './Checkbox.css';
 
-interface CheckboxProps {
-  id?: string;
-  name?: string;
-  checked?: boolean;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
-const Checkbox = ({ id, name, checked, onChange }: CheckboxProps) => (
+const Checkbox = ({ name, ...props }: CheckboxProps) => (
   <label className="checkbox__label" aria-label={name}>
-    <input
-      id={id}
-      name={name}
-      type="checkbox"
-      className="checkbox__input"
-      checked={checked}
-      onChange={onChange}
-    />
+    <input name={name} type="checkbox" className="checkbox__input" {...props} />
     <svg className="checkbox__icon" role="presentation" aria-hidden="true">
       <use href="/icons.svg#check" />
     </svg>

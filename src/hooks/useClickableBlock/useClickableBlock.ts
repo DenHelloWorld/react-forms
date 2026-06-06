@@ -31,23 +31,13 @@ export const useClickableBlock = ({
 
       if (!onClick) return;
 
-      if (allowedKeys.length) {
-        return;
-      }
-
-      const target = e.target as HTMLElement;
-
-      if (target.closest('button, a, input, select, textarea')) {
-        return;
-      }
-
       if (e.button === 0) {
         onClick(e);
       }
 
       e.stopPropagation();
     },
-    [onClick, allowedKeys, stopPropagation]
+    [onClick, stopPropagation]
   );
 
   const handleKeyDown = useCallback(
@@ -60,9 +50,6 @@ export const useClickableBlock = ({
         onClick(e);
         return;
       }
-
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
     },
     [onClick, allowedKeys]
   );

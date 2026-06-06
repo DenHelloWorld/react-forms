@@ -24,6 +24,7 @@ export const useModal = ({
   backdropProps: {
     role: 'button';
     tabIndex: number;
+    onMouseDown: (e: MouseEvent<HTMLElement>) => void;
     onClick: (e: MouseEvent<HTMLElement>) => void;
     onKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
   };
@@ -31,6 +32,7 @@ export const useModal = ({
   const mountNode = useContext(PortalContext);
   const backdropRef = useRef<HTMLDivElement | null>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const mouseDownInsideRef = useRef(false);
 
   const { onClick, onKeyDown } = useClickableBlock({
     onClick: onClose,
@@ -53,7 +55,16 @@ export const useModal = ({
     backdropProps: {
       role: 'button',
       tabIndex: -1,
-      onClick,
+      onMouseDown: (e: MouseEvent<HTMLElement>) => {
+        mouseDownInsideRef.current = e.target !== e.currentTarget;
+      },
+      onClick: (e: MouseEvent<HTMLElement>) => {
+        if (mouseDownInsideRef.current) {
+          mouseDownInsideRef.current = false;
+          return;
+        }
+        onClick(e);
+      },
       onKeyDown,
     },
   };

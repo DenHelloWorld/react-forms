@@ -16,7 +16,7 @@ import { usePasswordStrength } from '../../hooks/usePasswordStrength/usePassword
 import { useImageToBase64 } from '../../hooks/useImageToBase64/useImageToBase64.ts';
 import { useFormStore } from '../../store/useFormStore.ts';
 import '../form.css';
-import { type BaseSyntheticEvent, type ChangeEvent } from 'react';
+import { useEffect, type BaseSyntheticEvent, type ChangeEvent } from 'react';
 
 interface ReactHookFormAdvancedProps {
   onSubmit: (data: FormSubmissionPayload) => void;
@@ -33,6 +33,7 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
     handleSubmit,
     control,
     reset,
+    trigger,
     formState: { errors, isValid },
   } = useForm<AdvancedFormData>({
     resolver: yupResolver(advancedFormSchema),
@@ -48,7 +49,18 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
   });
 
   const password = useWatch({ control, name: 'password', defaultValue: '' });
+  const confirmPassword = useWatch({
+    control,
+    name: 'confirmPassword',
+    defaultValue: '',
+  });
   const strength = usePasswordStrength(password);
+
+  useEffect(() => {
+    if (confirmPassword) {
+      void trigger('confirmPassword');
+    }
+  }, [confirmPassword, password, trigger]);
 
   const onValid = async (data: AdvancedFormData) => {
     const image = await convertFile(data.image);
@@ -69,21 +81,11 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
     void handleSubmit(onValid)(e);
   };
 
-  const isTouchedWithError = (field: keyof AdvancedFormData) => !!errors[field];
-
   const handleImageChange =
     (onChange: (file: File | null) => void) =>
     (e: ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.files?.[0] ?? null);
     };
-
-  const fieldError = (field: keyof AdvancedFormData) => ({
-    className: `form__input${isTouchedWithError(field) ? ' form__input--error' : ''}`,
-    'aria-invalid': isTouchedWithError(field),
-    'aria-describedby': isTouchedWithError(field)
-      ? `${FIELD_IDS[field]}-error`
-      : undefined,
-  });
 
   return (
     <form onSubmit={onHandleSubmit} className="form" noValidate>
@@ -96,7 +98,11 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
             id={FIELD_IDS.name}
             type="text"
             autoComplete="name"
-            {...fieldError('name')}
+            className={`form__input${errors.name ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.name}
+            aria-describedby={
+              errors.name ? `${FIELD_IDS.name}-error` : undefined
+            }
             {...register('name')}
           />
           <p
@@ -116,7 +122,9 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
             id={FIELD_IDS.age}
             type="number"
             min="0"
-            {...fieldError('age')}
+            className={`form__input${errors.age ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.age}
+            aria-describedby={errors.age ? `${FIELD_IDS.age}-error` : undefined}
             {...register('age', {
               setValueAs: setAsNumber as (v: unknown) => unknown,
             })}
@@ -138,7 +146,11 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
             id={FIELD_IDS.email}
             type="email"
             autoComplete="email"
-            {...fieldError('email')}
+            className={`form__input${errors.email ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.email}
+            aria-describedby={
+              errors.email ? `${FIELD_IDS.email}-error` : undefined
+            }
             {...register('email')}
           />
           <p
@@ -178,7 +190,11 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
             type="text"
             list="countries-list"
             autoComplete="off"
-            {...fieldError('country')}
+            className={`form__input${errors.country ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.country}
+            aria-describedby={
+              errors.country ? `${FIELD_IDS.country}-error` : undefined
+            }
             {...register('country')}
           />
           <datalist id="countries-list">
@@ -204,7 +220,11 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
           <PasswordInput
             id={FIELD_IDS.password}
             autoComplete="new-password"
-            {...fieldError('password')}
+            className={`form__input${errors.password ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.password}
+            aria-describedby={
+              errors.password ? `${FIELD_IDS.password}-error` : undefined
+            }
             {...register('password')}
           />
           <PasswordStrength strength={strength} />
@@ -224,7 +244,13 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
           <PasswordInput
             id={FIELD_IDS.confirmPassword}
             autoComplete="new-password"
-            {...fieldError('confirmPassword')}
+            className={`form__input${errors.confirmPassword ? ' form__input--error' : ''}`}
+            aria-invalid={!!errors.confirmPassword}
+            aria-describedby={
+              errors.confirmPassword
+                ? `${FIELD_IDS.confirmPassword}-error`
+                : undefined
+            }
             {...register('confirmPassword')}
           />
           <p
@@ -249,12 +275,10 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
                 ref={ref}
                 type="file"
                 accept="image/jpeg,image/png"
-                className={`form__input${isTouchedWithError('image') ? ' form__input--error' : ''}`}
-                aria-invalid={isTouchedWithError('image')}
+                className={`form__input${errors.image ? ' form__input--error' : ''}`}
+                aria-invalid={!!errors.image}
                 aria-describedby={
-                  isTouchedWithError('image')
-                    ? `${FIELD_IDS.image}-error`
-                    : undefined
+                  errors.image ? `${FIELD_IDS.image}-error` : undefined
                 }
                 onChange={handleImageChange(onChange)}
               />
@@ -280,6 +304,10 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
                   name={field.name}
                   checked={field.value}
                   onChange={field.onChange}
+                  aria-invalid={!!errors.terms}
+                  aria-describedby={
+                    errors.terms ? `${FIELD_IDS.terms}-error` : undefined
+                  }
                 />
               )}
             />

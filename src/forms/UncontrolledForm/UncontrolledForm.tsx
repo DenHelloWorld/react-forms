@@ -164,7 +164,14 @@ const UncontrolledForm = ({ onSubmit }: UncontrolledFormProps) => {
 
         <div className="form__field form__field--checkbox">
           <div className="inline-flex items-center gap-2">
-            <Checkbox id={FIELD_IDS.terms} name="terms" />
+            <Checkbox
+              id={FIELD_IDS.terms}
+              name="terms"
+              aria-invalid={!!errors.terms}
+              aria-describedby={
+                errors.terms ? `${FIELD_IDS.terms}-error` : undefined
+              }
+            />
             <label
               htmlFor={FIELD_IDS.terms}
               className="form__label--checkbox-text cursor-pointer"
