@@ -73,6 +73,7 @@ export const useFormStore = create<FormState>((set) => ({
     { name: 'Poland', flag: '🇵🇱' },
     { name: 'Portugal', flag: '🇵🇹' },
     { name: 'Romania', flag: '🇷🇴' },
+    { name: 'Russia', flag: '🇷🇺' },
     { name: 'Saudi Arabia', flag: '🇸🇦' },
     { name: 'Singapore', flag: '🇸🇬' },
     { name: 'Slovakia', flag: '🇸🇰' },

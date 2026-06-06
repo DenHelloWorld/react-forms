@@ -22,7 +22,7 @@ const UncontrolledFormModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} title="Uncontrolled Form">
       <UncontrolledForm onSubmit={handleSubmit} />
     </Modal>
   );

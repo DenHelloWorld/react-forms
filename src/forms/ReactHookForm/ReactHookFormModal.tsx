@@ -19,7 +19,7 @@ const ReactHookFormModal = ({ isOpen, onClose }: ReactHookFormModalProps) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} title="React Hook Form">
       <ReactHookForm onSubmit={handleSubmit} />
     </Modal>
   );
