@@ -4,10 +4,10 @@ import './Radio.css';
 const Radio = (
   props: Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className'>
 ) => (
-  <>
-    <input type="radio" className="radio__input" {...props} />
+  <span className="radio__wrapper">
+    <input type="radio" className="radio__input" tabIndex={0} {...props} />
     <span className="radio__circle" />
-  </>
+  </span>
 );
 
 export default Radio;

@@ -1,23 +1,31 @@
 @reference "../../index.css";
 
 .checkbox__label {
-  @apply inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded border-2 border-border bg-bg transition-colors;
+  @apply relative inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded border-2 border-border bg-bg transition-colors;
 }
 
 .checkbox__label:hover {
-  @apply border-accent;
+  @apply border-accent-secondary;
 }
 
 .checkbox__label:has(.checkbox__input:checked) {
-  @apply border-accent bg-accent text-white;
+  @apply border-accent-secondary bg-accent-secondary text-white;
 }
 
 .checkbox__input {
-  @apply sr-only;
+  @apply absolute inset-0 m-0 cursor-pointer opacity-0;
+}
+
+.checkbox__input:focus-visible + .checkbox__icon {
+  outline: none;
+}
+
+.checkbox__label:has(.checkbox__input:focus-visible) {
+  @apply ring-2 ring-accent ring-offset-1 ring-offset-bg;
 }
 
 .checkbox__icon {
-  @apply hidden h-4 w-4;
+  @apply hidden h-4 w-4 pointer-events-none;
 }
 
 .checkbox__input:checked + .checkbox__icon {

@@ -11,7 +11,7 @@
 }
 
 .btn {
-  @apply cursor-pointer rounded bg-accent px-4 py-2 text-white hover:opacity-90;
+  @apply cursor-pointer rounded bg-accent-secondary px-4 py-2 text-white hover:opacity-90;
 }
 
 .btn:disabled {
@@ -19,7 +19,7 @@
 }
 
 .btn--secondary {
-  @apply cursor-pointer rounded border border-accent-border bg-accent-bg px-4 py-2 text-accent hover:bg-accent hover:text-white;
+  @apply cursor-pointer rounded border border-accent-secondary/45 bg-accent-secondary/7 px-4 py-2 text-accent-secondary hover:bg-accent-secondary hover:text-white;
 }
 
 .btn--accent {

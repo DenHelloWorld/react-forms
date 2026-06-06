@@ -52,22 +52,19 @@ export const useClickableBlock = ({
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
-      if (stopPropagation) {
-        e.stopPropagation();
-      }
-
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
-
       if (
         allowedKeys.length > 0 &&
         allowedKeys.includes(e.key as KeyboardKey) &&
         onClick
       ) {
         onClick(e);
+        return;
       }
+
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
     },
-    [onClick, allowedKeys, stopPropagation]
+    [onClick, allowedKeys]
   );
 
   return {

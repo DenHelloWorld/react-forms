@@ -1,7 +1,11 @@
 @reference "../index.css";
 
 .form {
-  @apply flex flex-col gap-4;
+  @apply flex flex-1 flex-col overflow-hidden;
+}
+
+.form__fields {
+  @apply flex flex-col gap-4 overflow-y-auto flex-1 px-6 py-6;
 }
 
 .form__field {
@@ -37,11 +41,11 @@
 }
 
 .form__input--error {
-  @apply border-accent-secondary;
+  @apply border-error;
 }
 
 .form__error {
-  @apply text-sm text-accent-secondary;
+  @apply text-sm text-error;
   min-height: 1.25rem;
   visibility: hidden;
 }
@@ -70,6 +74,6 @@
   @apply cursor-pointer text-text;
 }
 
-.form__submit {
-  @apply mt-2 self-start;
+.form__actions {
+  @apply shrink-0 border-t border-border bg-bg px-6 py-4 flex justify-end;
 }
