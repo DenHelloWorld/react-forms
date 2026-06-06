@@ -13,9 +13,11 @@ import { PortalContext } from '../../contexts/PortalContext/PortalContext.tsx';
 export const useModal = ({
   isOpen,
   onClose,
+  closeButtonRef,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  closeButtonRef: RefObject<HTMLElement | null>;
 }): {
   mountNode: HTMLElement | null;
   backdropRef: RefObject<HTMLDivElement | null>;
@@ -28,27 +30,31 @@ export const useModal = ({
 } => {
   const mountNode = useContext(PortalContext);
   const backdropRef = useRef<HTMLDivElement | null>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  const mouse = useClickableBlock({ onClick: onClose });
-  const keyboard = useClickableBlock({
+  const { onClick, onKeyDown } = useClickableBlock({
     onClick: onClose,
-    allowedKeys: [KEYBOARD_KEYS.ESC, KEYBOARD_KEYS.ESCAPE],
+    allowedKeys: [KEYBOARD_KEYS.ESCAPE, KEYBOARD_KEYS.ESC],
   });
 
   useEffect(() => {
-    if (isOpen && backdropRef.current) {
-      backdropRef.current.focus();
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      closeButtonRef.current?.focus();
+    } else {
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
     }
-  }, [isOpen]);
+  }, [isOpen, closeButtonRef]);
 
   return {
     mountNode,
     backdropRef,
     backdropProps: {
-      role: mouse.role,
-      tabIndex: mouse.tabIndex,
-      onClick: mouse.onClick,
-      onKeyDown: keyboard.onKeyDown,
+      role: 'button',
+      tabIndex: -1,
+      onClick,
+      onKeyDown,
     },
   };
 };

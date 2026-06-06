@@ -5,17 +5,40 @@
 }
 
 .modal__container {
-  @apply w-full max-w-md rounded-xl bg-bg p-6 shadow-custom;
+  @apply w-full max-w-md rounded-xl bg-bg shadow-custom flex flex-col;
+  max-height: 90vh;
+  max-width: 90vw;
+  border-top: 3px solid var(--accent-secondary);
 }
 
 .modal__header {
-  @apply mb-4 flex items-center justify-end;
+  @apply flex shrink-0 items-center justify-between gap-4 border-b border-border px-6 py-4;
+}
+
+.modal__title {
+  @apply text-lg font-semibold text-accent;
 }
 
 .modal__close-btn {
-  @apply cursor-pointer rounded p-1 text-text hover:bg-border hover:text-text-h;
+  @apply ml-auto cursor-pointer rounded p-1 text-text;
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+}
+
+.modal__close-btn:hover {
+  color: var(--accent-secondary);
+  background-color: rgba(255, 87, 34, 0.1);
 }
 
 .modal__close-icon {
   @apply h-5 w-5;
+}
+
+.modal__body {
+  @apply flex flex-1 flex-col overflow-hidden;
+}
+
+.modal__sentinel {
+  @apply sr-only;
 }
