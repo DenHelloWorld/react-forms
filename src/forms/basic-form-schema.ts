@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as yup from 'yup';
 import { GENDERS } from '../consts/genders.const.ts';
 
 const isValidEmail = (email: string): boolean => {
@@ -12,32 +12,41 @@ const isValidEmail = (email: string): boolean => {
   return true;
 };
 
-export const basicFormSchema = z.object({
-  name: z
+export const basicFormSchema = yup.object({
+  name: yup
     .string()
-    .trim()
-    .min(1, 'Name is required')
-    .regex(/^\p{Lu}/u, 'First letter must be uppercase'),
-  age: z
-    .number({ message: 'Age must be a number' })
-    .refine((age) => !Number.isNaN(age), 'Age must be a number')
-    .int('Age must be an integer')
-    .nonnegative('Age cannot be negative')
+    .required('Name is required')
+    .test('uppercase', 'First letter must be uppercase', (val) =>
+      val ? /^\p{Lu}/u.test(val) : false
+    ),
+  age: yup
+    .number()
+    .typeError('Age must be a number')
+    .required('Age is required')
+    .integer('Age must be an integer')
+    .min(0, 'Age cannot be negative')
     .max(150, 'Age cannot exceed 150'),
-  email: z.string().refine(isValidEmail, 'Invalid email format'),
-  gender: z.enum([GENDERS.MALE, GENDERS.FEMALE, GENDERS.OTHER], {
-    message: 'Please select a gender',
-  }),
-  terms: z
+  email: yup
+    .string()
+    .required('Email is required')
+    .test('email-format', 'Invalid email format', (val) =>
+      val ? isValidEmail(val) : false
+    ),
+  gender: yup
+    .mixed<(typeof GENDERS)[keyof typeof GENDERS]>()
+    .oneOf(Object.values(GENDERS), 'Please select a gender')
+    .required('Please select a gender'),
+  terms: yup
     .boolean()
-    .refine((terms) => terms, 'You must accept the Terms and Conditions'),
+    .required()
+    .oneOf([true], 'You must accept the Terms and Conditions'),
 });
 
-export type BasicFormData = z.infer<typeof basicFormSchema>;
+export type BasicFormData = yup.InferType<typeof basicFormSchema>;
 
 type BasicFormField = keyof BasicFormData;
 
-const FIELD_KEYS: BasicFormField[] = [
+export const BASIC_FIELD_KEYS: BasicFormField[] = [
   'name',
   'age',
   'email',
@@ -45,9 +54,18 @@ const FIELD_KEYS: BasicFormField[] = [
   'terms',
 ];
 
+export const setAsNumber = (v: unknown): number | undefined => {
+  if (typeof v !== 'string' || v === '') return undefined;
+  const n = Number(v);
+  return Number.isNaN(n) ? undefined : n;
+};
+
+export const getString = (value: FormDataEntryValue | null): string =>
+  typeof value === 'string' ? value : '';
+
 export const createFieldIds = (
   prefix: string
 ): Record<BasicFormField, string> =>
   Object.fromEntries(
-    FIELD_KEYS.map((key) => [key, `${prefix}-${key}`])
+    BASIC_FIELD_KEYS.map((key) => [key, `${prefix}-${key}`])
   ) as Record<BasicFormField, string>;
