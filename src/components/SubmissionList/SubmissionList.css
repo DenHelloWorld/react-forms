@@ -46,3 +46,11 @@
 .submission-card__value {
   @apply text-text;
 }
+
+.submission-card__row--image {
+  @apply items-start;
+}
+
+.submission-card__image {
+  @apply h-16 w-16 rounded object-cover;
+}

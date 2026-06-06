@@ -27,6 +27,22 @@ const SubmissionList = () => {
                 <span className="submission-card__label">Gender</span>
                 <span className="submission-card__value">{s.gender}</span>
               </div>
+              {s.country && (
+                <div className="submission-card__row">
+                  <span className="submission-card__label">Country</span>
+                  <span className="submission-card__value">{s.country}</span>
+                </div>
+              )}
+              {s.image && (
+                <div className="submission-card__row submission-card__row--image">
+                  <span className="submission-card__label">Photo</span>
+                  <img
+                    src={s.image}
+                    alt={s.name}
+                    className="submission-card__image"
+                  />
+                </div>
+              )}
             </li>
           ))}
         </ul>
