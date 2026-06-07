@@ -1,5 +1,5 @@
 .page {
-  @apply min-h-screen bg-bg text-text p-8;
+  @apply h-screen overflow-hidden bg-bg text-text p-8 flex flex-col;
 
   .page__title {
     @apply text-3xl font-heading text-text-h font-bold;

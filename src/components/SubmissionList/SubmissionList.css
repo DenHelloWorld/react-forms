@@ -1,7 +1,7 @@
 @reference "../../index.css";
 
 .submission-list {
-  @apply mt-8;
+  @apply mt-8 flex flex-col flex-1 overflow-hidden min-h-0;
 }
 
 .submission-list__title {
@@ -9,7 +9,7 @@
 }
 
 .submission-list__items {
-  @apply flex flex-col gap-3;
+  @apply flex flex-col gap-3 overflow-y-auto flex-1 pr-1;
 }
 
 @keyframes card-highlight {
