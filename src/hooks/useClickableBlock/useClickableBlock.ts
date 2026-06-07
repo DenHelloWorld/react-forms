@@ -4,8 +4,8 @@ import { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 type KeyboardKey = (typeof KEYBOARD_KEYS)[keyof typeof KEYBOARD_KEYS];
 
 interface ClickableReturnProps {
-  role: 'button';
-  tabIndex: number;
+  role?: 'button';
+  tabIndex?: number;
   onClick: (e: MouseEvent<HTMLElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
 }
@@ -53,8 +53,7 @@ export const useClickableBlock = ({
   );
 
   return {
-    role: 'button',
-    tabIndex: 0,
+    ...(onClick ? { role: 'button', tabIndex: 0 } : {}),
     onClick: handleClick,
     onKeyDown: handleKeyDown,
   };

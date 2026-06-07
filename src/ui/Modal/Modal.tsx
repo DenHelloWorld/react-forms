@@ -48,13 +48,13 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
         tabIndex={0}
         onFocus={focusCloseButton}
         className="modal__sentinel"
-        aria-hidden="true"
       />
       <div className="modal__container">
         <header className="modal__header">
           {title && <h2 className="modal__title">{title}</h2>}
           <button
             ref={closeButtonRef}
+            type="button"
             aria-label="Close"
             onClick={onClose}
             className="modal__close-btn"
@@ -78,7 +78,6 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
         tabIndex={0}
         onFocus={focusCloseButton}
         className="modal__sentinel"
-        aria-hidden="true"
       />
     </div>,
     mountNode
