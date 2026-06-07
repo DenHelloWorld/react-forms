@@ -242,7 +242,7 @@ const UncontrolledFormAdvanced = ({
             }
             className={fieldClass('password')}
           />
-          <PasswordStrength strength={strength} />
+          <PasswordStrength rules={strength} />
           <p
             id={`${FIELD_IDS.password}-error`}
             className={`form__error${errors.password ? ' form__error--visible' : ''}`}
