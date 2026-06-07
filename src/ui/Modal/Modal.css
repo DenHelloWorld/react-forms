@@ -5,10 +5,7 @@
 }
 
 .modal__container {
-  @apply w-full max-w-md rounded-xl bg-bg shadow-custom flex flex-col;
-  max-height: 90vh;
-  max-width: 90vw;
-  border-top: 3px solid var(--accent-secondary);
+  @apply w-fit max-w-[90vw] max-h-[90vh] rounded-xl bg-bg shadow-custom flex flex-col border-t-[3px] border-accent-secondary;
 }
 
 .modal__header {
@@ -20,15 +17,7 @@
 }
 
 .modal__close-btn {
-  @apply ml-auto cursor-pointer rounded p-1 text-text;
-  transition:
-    color 0.15s,
-    background-color 0.15s;
-}
-
-.modal__close-btn:hover {
-  color: var(--accent-secondary);
-  background-color: rgba(255, 87, 34, 0.1);
+  @apply ml-auto cursor-pointer rounded p-1 text-text transition-colors duration-150 hover:text-accent-secondary hover:bg-accent-secondary/10;
 }
 
 .modal__close-icon {

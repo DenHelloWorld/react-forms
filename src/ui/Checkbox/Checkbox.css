@@ -17,7 +17,7 @@
 }
 
 .checkbox__input:focus-visible + .checkbox__icon {
-  outline: none;
+  @apply outline-none;
 }
 
 .checkbox__label:has(.checkbox__input:focus-visible) {

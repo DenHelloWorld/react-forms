@@ -32,7 +32,7 @@
 
 .submission-card {
   @apply rounded border border-border bg-bg p-4 shadow-custom flex flex-col gap-2;
-  animation: card-highlight 5s ease-out forwards;
+  @apply animate-[card-highlight_5s_ease-out_forwards];
 }
 
 .submission-card__row {
