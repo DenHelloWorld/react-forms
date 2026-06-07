@@ -22,7 +22,6 @@ export const useModal = ({
   mountNode: HTMLElement | null;
   backdropRef: RefObject<HTMLDivElement | null>;
   backdropProps: {
-    role: 'button';
     tabIndex: number;
     onMouseDown: (e: MouseEvent<HTMLElement>) => void;
     onClick: (e: MouseEvent<HTMLElement>) => void;
@@ -53,7 +52,6 @@ export const useModal = ({
     mountNode,
     backdropRef,
     backdropProps: {
-      role: 'button',
       tabIndex: -1,
       onMouseDown: (e: MouseEvent<HTMLElement>) => {
         mouseDownInsideRef.current = e.target !== e.currentTarget;

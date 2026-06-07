@@ -35,12 +35,15 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
 
   const focusCloseButton = () => closeButtonRef.current?.focus();
 
+  const titleId = title ? 'modal-title' : undefined;
+
   return createPortal(
     <div
       ref={backdropRef}
       {...backdropProps}
       role="dialog"
       aria-modal="true"
+      aria-labelledby={titleId}
       className="modal__backdrop"
     >
       <button
@@ -51,7 +54,11 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
       />
       <div className="modal__container">
         <header className="modal__header">
-          {title && <h2 className="modal__title">{title}</h2>}
+          {title && (
+            <h2 id={titleId} className="modal__title">
+              {title}
+            </h2>
+          )}
           <button
             ref={closeButtonRef}
             type="button"

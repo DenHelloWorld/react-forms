@@ -15,15 +15,21 @@ export const advancedFormSchema = basicFormSchema.concat(
     country: yup
       .string()
       .required('Country is required')
+      .transform((val: string) => {
+        if (!val) return val;
+        const countries = useFormStore.getState().countries;
+        const match = countries.find(
+          (c) => c.name.toLowerCase() === val.trim().toLowerCase()
+        );
+        return match ? match.name : val;
+      })
       .test(
         'valid-country',
         'Please select a valid country from the list',
         (val) => {
           if (!val) return false;
           const countries = useFormStore.getState().countries;
-          return countries.some(
-            (c) => c.name.toLowerCase() === val.trim().toLowerCase()
-          );
+          return countries.some((c) => c.name === val);
         }
       ),
     password: yup

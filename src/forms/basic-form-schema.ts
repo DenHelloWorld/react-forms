@@ -42,9 +42,7 @@ export const basicFormSchema = yup.object({
     .oneOf([true], 'You must accept the Terms and Conditions'),
 });
 
-export type BasicFormData = yup.InferType<typeof basicFormSchema>;
-
-type BasicFormField = keyof BasicFormData;
+type BasicFormField = keyof yup.InferType<typeof basicFormSchema>;
 
 export const BASIC_FIELD_KEYS: BasicFormField[] = [
   'name',
@@ -62,10 +60,3 @@ export const setAsNumber = (v: unknown): number | undefined => {
 
 export const getString = (value: FormDataEntryValue | null): string =>
   typeof value === 'string' ? value : '';
-
-export const createFieldIds = (
-  prefix: string
-): Record<BasicFormField, string> =>
-  Object.fromEntries(
-    BASIC_FIELD_KEYS.map((key) => [key, `${prefix}-${key}`])
-  ) as Record<BasicFormField, string>;

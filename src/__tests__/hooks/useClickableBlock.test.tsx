@@ -2,7 +2,10 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { MouseEvent, KeyboardEvent } from 'react';
-import { useClickableBlock } from '../../hooks/useClickableBlock/useClickableBlock.ts';
+import {
+  useClickableBlock,
+  type KeyboardKey,
+} from '../../hooks/useClickableBlock/useClickableBlock.ts';
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -14,7 +17,7 @@ const TestBlock = ({
   stopPropagation,
 }: {
   onClick?: (e: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => void;
-  allowedKeys?: string[];
+  allowedKeys?: KeyboardKey[];
   stopPropagation?: boolean;
 }) => {
   const props = useClickableBlock({ onClick, allowedKeys, stopPropagation });
