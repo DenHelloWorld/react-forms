@@ -5,7 +5,7 @@
 }
 
 .modal__container {
-  @apply w-fit max-w-[90vw] max-h-[90vh] rounded-xl bg-bg shadow-custom flex flex-col border-t-[3px] border-accent-secondary;
+  @apply w-modal max-w-[90vw] max-h-[90vh] rounded-xl bg-bg shadow-custom flex flex-col border-t-[3px] border-accent-secondary;
 }
 
 .modal__header {

@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import UncontrolledFormModal from '../../forms/UncontrolledForm/UncontrolledFormModal.tsx';
-import ReactHookFormModal from '../../forms/ReactHookForm/ReactHookFormModal.tsx';
 import ReactHookFormAdvancedModal from '../../forms/ReactHookFormAdvanced/ReactHookFormAdvancedModal.tsx';
 import UncontrolledFormAdvancedModal from '../../forms/UncontrolledFormAdvanced/UncontrolledFormAdvancedModal.tsx';
 import SubmissionList from '../../components/SubmissionList/SubmissionList.tsx';
 import './HomePage.css';
 
 const HomePage = () => {
-  const [isUncontrolledOpen, setIsUncontrolledOpen] = useState(false);
   const [isRHFOpen, setIsRHFOpen] = useState(false);
-  const [isRHFAdvancedOpen, setIsRHFAdvancedOpen] = useState(false);
-  const [isUCAdvancedOpen, setIsUCAdvancedOpen] = useState(false);
+  const [isUCOpen, setIsUCOpen] = useState(false);
 
   return (
     <div className="page">
@@ -19,7 +15,7 @@ const HomePage = () => {
         <button
           type="button"
           onClick={() => {
-            setIsUncontrolledOpen(true);
+            setIsUCOpen(true);
           }}
           className="btn--secondary"
         >
@@ -34,53 +30,21 @@ const HomePage = () => {
         >
           React Hook Form
         </button>
-        <button
-          type="button"
-          onClick={() => {
-            setIsRHFAdvancedOpen(true);
-          }}
-          className="btn--secondary"
-        >
-          RHF Advanced
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setIsUCAdvancedOpen(true);
-          }}
-          className="btn--secondary"
-        >
-          Uncontrolled Advanced
-        </button>
       </div>
 
       <SubmissionList />
 
-      <UncontrolledFormModal
-        isOpen={isUncontrolledOpen}
+      <UncontrolledFormAdvancedModal
+        isOpen={isUCOpen}
         onClose={() => {
-          setIsUncontrolledOpen(false);
-        }}
-      />
-
-      <ReactHookFormModal
-        isOpen={isRHFOpen}
-        onClose={() => {
-          setIsRHFOpen(false);
+          setIsUCOpen(false);
         }}
       />
 
       <ReactHookFormAdvancedModal
-        isOpen={isRHFAdvancedOpen}
+        isOpen={isRHFOpen}
         onClose={() => {
-          setIsRHFAdvancedOpen(false);
-        }}
-      />
-
-      <UncontrolledFormAdvancedModal
-        isOpen={isUCAdvancedOpen}
-        onClose={() => {
-          setIsUCAdvancedOpen(false);
+          setIsRHFOpen(false);
         }}
       />
     </div>

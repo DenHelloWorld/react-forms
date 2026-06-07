@@ -15,13 +15,13 @@
 @keyframes card-highlight {
   0% {
     border-color: var(--accent-secondary);
-    background-color: rgba(255, 87, 34, 0.08);
-    box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.25);
+    background-color: var(--accent-secondary-bg);
+    box-shadow: 0 0 0 2px var(--accent-secondary-glow);
   }
   70% {
     border-color: var(--accent-secondary);
-    background-color: rgba(255, 87, 34, 0.08);
-    box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.25);
+    background-color: var(--accent-secondary-bg);
+    box-shadow: 0 0 0 2px var(--accent-secondary-glow);
   }
   100% {
     border-color: var(--border);

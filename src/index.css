@@ -2,6 +2,8 @@
 @import './styles/common.css';
 
 @theme {
+  --width-modal: 560px;
+  --max-width-modal: 560px;
   --color-text: var(--text);
   --color-text-h: var(--text-h);
   --color-bg: var(--bg);
@@ -30,6 +32,8 @@
   --accent-bg: rgba(118, 171, 174, 0.12);
   --accent-border: rgba(118, 171, 174, 0.4);
   --accent-secondary: #ff5722;
+  --accent-secondary-bg: rgba(255, 87, 34, 0.08);
+  --accent-secondary-glow: rgba(255, 87, 34, 0.25);
   --error: #e53935;
   --success: #43a047;
   --social-bg: rgba(213, 216, 218, 0.5);

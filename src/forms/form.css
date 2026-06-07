@@ -5,7 +5,7 @@
 }
 
 .form__fields {
-  @apply flex flex-col gap-4 overflow-y-auto flex-1 px-6 py-6 w-full max-w-[560px] mx-auto;
+  @apply flex flex-col gap-4 overflow-y-auto flex-1 px-6 py-6 w-full max-w-modal mx-auto;
 }
 
 .form__field {
