@@ -45,6 +45,7 @@ export const useClickableBlock = ({
         allowedKeys.includes(e.key as KeyboardKey) &&
         onClick
       ) {
+        e.stopPropagation();
         onClick(e);
         return;
       }

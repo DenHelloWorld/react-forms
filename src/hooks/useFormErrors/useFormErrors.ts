@@ -19,7 +19,7 @@ export const useFormErrors = <T extends Record<string, unknown>>(): {
       }
     }
 
-    if (error.inner.length === 0 && error.path) {
+    if (error.inner.length === 0 && error.path !== undefined) {
       fieldErrors[error.path as keyof T] = error.message;
     }
 
