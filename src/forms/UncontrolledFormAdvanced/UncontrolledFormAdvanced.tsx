@@ -235,7 +235,6 @@ const UncontrolledFormAdvanced = ({
             id={FIELD_IDS.password}
             name="password"
             autoComplete="new-password"
-            value={passwordValue}
             onChange={handlePasswordChange}
             aria-invalid={!!errors.password}
             aria-describedby={
