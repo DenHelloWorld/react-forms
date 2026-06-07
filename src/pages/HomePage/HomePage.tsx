@@ -9,7 +9,7 @@ const HomePage = () => {
   const [isUCOpen, setIsUCOpen] = useState(false);
 
   return (
-    <div className="page">
+    <div className="page container">
       <h1 className="page__title">React Forms</h1>
       <div className="page__buttons-row">
         <button

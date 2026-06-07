@@ -6,6 +6,10 @@
   }
 }
 
+.container {
+  @apply mx-auto w-full max-w-7xl flex flex-col flex-1 min-h-0;
+}
+
 .text-body {
   @apply mb-4 text-text;
 }
