@@ -4,7 +4,13 @@ import {
   type ChangeEvent,
   type BaseSyntheticEvent,
 } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import {
+  type Control,
+  type FieldErrors,
+  useForm,
+  type UseFormRegister,
+  useWatch,
+} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   createAdvancedFormSchema,
@@ -13,13 +19,28 @@ import {
 import {
   useFormStore,
   type FormSubmissionPayload,
+  type CountryObject,
 } from '../../store/useFormStore.ts';
-import { usePasswordStrength } from '../../hooks/usePasswordStrength/usePasswordStrength.ts';
+import {
+  type PasswordRuleResult,
+  usePasswordStrength,
+} from '../../hooks/usePasswordStrength/usePasswordStrength.ts';
 import { useImageToBase64 } from '../../hooks/useImageToBase64/useImageToBase64.ts';
 
 export const useAdvancedForm = (
   onSubmit: (data: FormSubmissionPayload) => void
-) => {
+): {
+  register: UseFormRegister<AdvancedFormData>;
+  control: Control<AdvancedFormData>;
+  errors: FieldErrors<AdvancedFormData>;
+  isValid: boolean;
+  strength: PasswordRuleResult[];
+  countries: CountryObject[];
+  onHandleSubmit: (e: BaseSyntheticEvent) => void;
+  handleImageChange: (
+    onChange: (file: File | null) => void
+  ) => (e: ChangeEvent<HTMLInputElement>) => void;
+} => {
   const countries = useFormStore((state) => state.countries);
   const { convertFile } = useImageToBase64();
   const schema = useMemo(

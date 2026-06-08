@@ -14,7 +14,18 @@ const matchesPassword = (
   return value === password;
 };
 
-export const createAdvancedFormSchema = (countries: Country[]) =>
+type BasicFormData = yup.InferType<typeof basicFormSchema>;
+
+export const createAdvancedFormSchema = (
+  countries: Country[]
+): yup.ObjectSchema<
+  BasicFormData & {
+    country: string;
+    password: string;
+    confirmPassword: string;
+    image: File;
+  }
+> =>
   basicFormSchema.concat(
     yup.object({
       country: yup

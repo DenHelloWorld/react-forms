@@ -11,7 +11,7 @@ export interface SubmissionData {
   createdAt: number;
 }
 
-interface CountryObject {
+export interface CountryObject {
   name: string;
   flag: string;
 }
