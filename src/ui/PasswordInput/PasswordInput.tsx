@@ -12,7 +12,7 @@ const PasswordInput = ({ className, ref, ...props }: PasswordInputProps) => {
   const [visible, setVisible] = useState(false);
 
   return (
-    <div className={`password-input form__input ${className ?? ''}`}>
+    <div className={`password-input ${className ?? ''}`}>
       <input
         ref={ref}
         type={visible ? 'text' : 'password'}

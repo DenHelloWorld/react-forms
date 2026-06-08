@@ -6,7 +6,8 @@ const matchesPassword = (
   value: string | undefined,
   ctx: yup.TestContext
 ): boolean => {
-  const { password } = ctx.parent as { password: string };
+  const parent = ctx.parent as Record<string, unknown>;
+  const password = typeof parent.password === 'string' ? parent.password : '';
   return value === password;
 };
 
@@ -66,7 +67,7 @@ export type AdvancedFormData = yup.InferType<typeof advancedFormSchema>;
 
 type AdvancedFormField = keyof AdvancedFormData;
 
-const ADVANCED_FIELD_KEYS: AdvancedFormField[] = [
+export const ADVANCED_FIELD_KEYS: AdvancedFormField[] = [
   ...BASIC_FIELD_KEYS,
   'country',
   'password',

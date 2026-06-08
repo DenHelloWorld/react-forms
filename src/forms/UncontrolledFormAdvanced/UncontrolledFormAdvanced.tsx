@@ -1,4 +1,5 @@
 import { useState, type SyntheticEvent, type ChangeEvent } from 'react';
+import { ValidationError } from 'yup';
 import {
   type FormSubmissionPayload,
   useFormStore,
@@ -73,7 +74,6 @@ const UncontrolledFormAdvanced = ({
         abortEarly: false,
       });
     } catch (err) {
-      const { ValidationError } = await import('yup');
       if (err instanceof ValidationError) parseYupErrors(err);
       return;
     }
@@ -176,12 +176,26 @@ const UncontrolledFormAdvanced = ({
           </p>
         </div>
 
-        <fieldset className="form__field form__field--radio">
+        <fieldset
+          className="form__field form__field--radio"
+          aria-invalid={!!errors.gender}
+          aria-describedby={
+            errors.gender ? `${FIELD_IDS.gender}-error` : undefined
+          }
+        >
           <legend className="form__label">Gender</legend>
           <div className="form__radio-group">
             {Object.values(GENDERS).map((g) => (
-              <label key={g} className="form__radio-label">
-                <Radio name="gender" value={g} />
+              <label
+                key={g}
+                htmlFor={`${FIELD_IDS.gender}-${g}`}
+                className="form__radio-label"
+              >
+                <Radio
+                  id={`${FIELD_IDS.gender}-${g}`}
+                  name="gender"
+                  value={g}
+                />
                 {g}
               </label>
             ))}

@@ -40,7 +40,10 @@ export const useModal = ({
 
   useEffect(() => {
     if (isOpen) {
-      previousFocusRef.current = document.activeElement as HTMLElement;
+      previousFocusRef.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
       closeButtonRef.current?.focus();
     } else {
       previousFocusRef.current?.focus();

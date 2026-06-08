@@ -162,12 +162,26 @@ const ReactHookFormAdvanced = ({ onSubmit }: ReactHookFormAdvancedProps) => {
           </p>
         </div>
 
-        <fieldset className="form__field form__field--radio">
+        <fieldset
+          className="form__field form__field--radio"
+          aria-invalid={!!errors.gender}
+          aria-describedby={
+            errors.gender ? `${FIELD_IDS.gender}-error` : undefined
+          }
+        >
           <legend className="form__label">Gender</legend>
           <div className="form__radio-group">
             {Object.values(GENDERS).map((gender) => (
-              <label key={gender} className="form__radio-label">
-                <Radio value={gender} {...register('gender')} />
+              <label
+                key={gender}
+                htmlFor={`${FIELD_IDS.gender}-${gender}`}
+                className="form__radio-label"
+              >
+                <Radio
+                  id={`${FIELD_IDS.gender}-${gender}`}
+                  value={gender}
+                  {...register('gender')}
+                />
                 {gender}
               </label>
             ))}

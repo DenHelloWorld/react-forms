@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useFormErrors } from '../../hooks/useFormErrors/useFormErrors.ts';
 
 interface Fields {
+  [key: string]: unknown;
   name: string;
   email: string;
 }
