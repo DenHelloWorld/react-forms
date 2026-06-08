@@ -1,6 +1,9 @@
 import * as yup from 'yup';
-import { useFormStore } from '../store/useFormStore';
 import { basicFormSchema, BASIC_FIELD_KEYS } from './basic-form-schema.ts';
+
+interface Country {
+  name: string;
+}
 
 const matchesPassword = (
   value: string | undefined,
@@ -11,59 +14,60 @@ const matchesPassword = (
   return value === password;
 };
 
-export const advancedFormSchema = basicFormSchema.concat(
-  yup.object({
-    country: yup
-      .string()
-      .required('Country is required')
-      .transform((val: string) => {
-        if (!val) return val;
-        const countries = useFormStore.getState().countries;
-        const match = countries.find(
-          (c) => c.name.toLowerCase() === val.trim().toLowerCase()
-        );
-        return match ? match.name : val;
-      })
-      .test(
-        'valid-country',
-        'Please select a valid country from the list',
-        (val) => {
-          if (!val) return false;
-          const countries = useFormStore.getState().countries;
-          return countries.some((c) => c.name === val);
-        }
-      ),
-    password: yup
-      .string()
-      .required('Password is required')
-      .min(8, 'Password must be at least 8 characters long'),
-    confirmPassword: yup
-      .string()
-      .required('Please confirm your password')
-      .test('passwords-match', 'Passwords do not match', matchesPassword),
-    image: yup
-      .mixed<File>()
-      .required('Image is required')
-      .test(
-        'is-file',
-        'Image is required',
-        (val) => val instanceof File && val.size > 0
-      )
-      .test('file-size', 'Max file size is 2MB', (val) =>
-        val instanceof File ? val.size <= 2 * 1024 * 1024 : false
-      )
-      .test(
-        'file-type',
-        'Only .jpg, .jpeg and .png formats are supported',
-        (val) =>
-          val instanceof File
-            ? ['image/jpeg', 'image/png'].includes(val.type)
-            : false
-      ),
-  })
-);
+export const createAdvancedFormSchema = (countries: Country[]) =>
+  basicFormSchema.concat(
+    yup.object({
+      country: yup
+        .string()
+        .required('Country is required')
+        .transform((val: string) => {
+          if (!val) return val;
+          const match = countries.find(
+            (c) => c.name.toLowerCase() === val.trim().toLowerCase()
+          );
+          return match ? match.name : val;
+        })
+        .test(
+          'valid-country',
+          'Please select a valid country from the list',
+          (val) => {
+            if (!val) return false;
+            return countries.some((c) => c.name === val);
+          }
+        ),
+      password: yup
+        .string()
+        .required('Password is required')
+        .min(8, 'Password must be at least 8 characters long'),
+      confirmPassword: yup
+        .string()
+        .required('Please confirm your password')
+        .test('passwords-match', 'Passwords do not match', matchesPassword),
+      image: yup
+        .mixed<File>()
+        .required('Image is required')
+        .test(
+          'is-file',
+          'Image is required',
+          (val) => val instanceof File && val.size > 0
+        )
+        .test('file-size', 'Max file size is 2MB', (val) =>
+          val instanceof File ? val.size <= 2 * 1024 * 1024 : false
+        )
+        .test(
+          'file-type',
+          'Only .jpg, .jpeg and .png formats are supported',
+          (val) =>
+            val instanceof File
+              ? ['image/jpeg', 'image/png'].includes(val.type)
+              : false
+        ),
+    })
+  );
 
-export type AdvancedFormData = yup.InferType<typeof advancedFormSchema>;
+export type AdvancedFormData = yup.InferType<
+  ReturnType<typeof createAdvancedFormSchema>
+>;
 
 type AdvancedFormField = keyof AdvancedFormData;
 

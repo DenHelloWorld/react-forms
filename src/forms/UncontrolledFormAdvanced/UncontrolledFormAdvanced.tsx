@@ -5,7 +5,7 @@ import {
   useFormStore,
 } from '../../store/useFormStore.ts';
 import {
-  advancedFormSchema,
+  createAdvancedFormSchema,
   createAdvancedFieldIds,
   type AdvancedFormData,
 } from '../advanced-form-schema.ts';
@@ -18,6 +18,7 @@ import PasswordInput from '../../ui/PasswordInput/PasswordInput.tsx';
 import { GENDERS } from '../../consts/genders.const.ts';
 import { usePasswordStrength } from '../../hooks/usePasswordStrength/usePasswordStrength.ts';
 import { useImageToBase64 } from '../../hooks/useImageToBase64/useImageToBase64.ts';
+import FormField from '../FormField.tsx';
 import '../form.css';
 
 interface UncontrolledFormAdvancedProps {
@@ -70,7 +71,7 @@ const UncontrolledFormAdvanced = ({
 
     let validData: AdvancedFormData;
     try {
-      validData = await advancedFormSchema.validate(data, {
+      validData = await createAdvancedFormSchema(countries).validate(data, {
         abortEarly: false,
       });
     } catch (err) {
@@ -106,10 +107,7 @@ const UncontrolledFormAdvanced = ({
       noValidate
     >
       <div className="form__fields">
-        <div className="form__field">
-          <label htmlFor={FIELD_IDS.name} className="form__label">
-            Name
-          </label>
+        <FormField id={FIELD_IDS.name} label="Name" error={errors.name}>
           <input
             id={FIELD_IDS.name}
             name="name"
@@ -121,19 +119,9 @@ const UncontrolledFormAdvanced = ({
             }
             className={fieldClass('name')}
           />
-          <p
-            id={`${FIELD_IDS.name}-error`}
-            className={`form__error${errors.name ? ' form__error--visible' : ''}`}
-            role="alert"
-          >
-            {errors.name}
-          </p>
-        </div>
+        </FormField>
 
-        <div className="form__field">
-          <label htmlFor={FIELD_IDS.age} className="form__label">
-            Age
-          </label>
+        <FormField id={FIELD_IDS.age} label="Age" error={errors.age}>
           <input
             id={FIELD_IDS.age}
             name="age"
@@ -143,19 +131,9 @@ const UncontrolledFormAdvanced = ({
             aria-describedby={errors.age ? `${FIELD_IDS.age}-error` : undefined}
             className={fieldClass('age')}
           />
-          <p
-            id={`${FIELD_IDS.age}-error`}
-            className={`form__error${errors.age ? ' form__error--visible' : ''}`}
-            role="alert"
-          >
-            {errors.age}
-          </p>
-        </div>
+        </FormField>
 
-        <div className="form__field">
-          <label htmlFor={FIELD_IDS.email} className="form__label">
-            Email
-          </label>
+        <FormField id={FIELD_IDS.email} label="Email" error={errors.email}>
           <input
             id={FIELD_IDS.email}
             name="email"
@@ -167,14 +145,7 @@ const UncontrolledFormAdvanced = ({
             }
             className={fieldClass('email')}
           />
-          <p
-            id={`${FIELD_IDS.email}-error`}
-            className={`form__error${errors.email ? ' form__error--visible' : ''}`}
-            role="alert"
-          >
-            {errors.email}
-          </p>
-        </div>
+        </FormField>
 
         <fieldset
           className="form__field form__field--radio"
@@ -209,10 +180,11 @@ const UncontrolledFormAdvanced = ({
           </p>
         </fieldset>
 
-        <div className="form__field">
-          <label htmlFor={FIELD_IDS.country} className="form__label">
-            Country
-          </label>
+        <FormField
+          id={FIELD_IDS.country}
+          label="Country"
+          error={errors.country}
+        >
           <input
             id={FIELD_IDS.country}
             name="country"
@@ -232,19 +204,13 @@ const UncontrolledFormAdvanced = ({
               </option>
             ))}
           </datalist>
-          <p
-            id={`${FIELD_IDS.country}-error`}
-            className={`form__error${errors.country ? ' form__error--visible' : ''}`}
-            role="alert"
-          >
-            {errors.country}
-          </p>
-        </div>
+        </FormField>
 
-        <div className="form__field">
-          <label htmlFor={FIELD_IDS.password} className="form__label">
-            Password
-          </label>
+        <FormField
+          id={FIELD_IDS.password}
+          label="Password"
+          error={errors.password}
+        >
           <PasswordInput
             id={FIELD_IDS.password}
             name="password"
@@ -257,19 +223,13 @@ const UncontrolledFormAdvanced = ({
             className={fieldClass('password')}
           />
           <PasswordStrength rules={strength} />
-          <p
-            id={`${FIELD_IDS.password}-error`}
-            className={`form__error${errors.password ? ' form__error--visible' : ''}`}
-            role="alert"
-          >
-            {errors.password}
-          </p>
-        </div>
+        </FormField>
 
-        <div className="form__field">
-          <label htmlFor={FIELD_IDS.confirmPassword} className="form__label">
-            Confirm Password
-          </label>
+        <FormField
+          id={FIELD_IDS.confirmPassword}
+          label="Confirm Password"
+          error={errors.confirmPassword}
+        >
           <PasswordInput
             id={FIELD_IDS.confirmPassword}
             name="confirmPassword"
@@ -282,19 +242,13 @@ const UncontrolledFormAdvanced = ({
             }
             className={fieldClass('confirmPassword')}
           />
-          <p
-            id={`${FIELD_IDS.confirmPassword}-error`}
-            className={`form__error${errors.confirmPassword ? ' form__error--visible' : ''}`}
-            role="alert"
-          >
-            {errors.confirmPassword}
-          </p>
-        </div>
+        </FormField>
 
-        <div className="form__field">
-          <label htmlFor={FIELD_IDS.image} className="form__label">
-            Photo (JPG/PNG, max 2MB)
-          </label>
+        <FormField
+          id={FIELD_IDS.image}
+          label="Photo (JPG/PNG, max 2MB)"
+          error={errors.image}
+        >
           <input
             id={FIELD_IDS.image}
             name="image"
@@ -306,14 +260,7 @@ const UncontrolledFormAdvanced = ({
             }
             className={fieldClass('image')}
           />
-          <p
-            id={`${FIELD_IDS.image}-error`}
-            className={`form__error${errors.image ? ' form__error--visible' : ''}`}
-            role="alert"
-          >
-            {errors.image}
-          </p>
-        </div>
+        </FormField>
 
         <div className="form__field form__field--checkbox">
           <div className="inline-flex items-center gap-2">

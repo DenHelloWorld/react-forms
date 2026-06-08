@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import UncontrolledFormAdvanced from '../../forms/UncontrolledFormAdvanced/UncontrolledFormAdvanced.tsx';
 import { type FormSubmissionPayload } from '../../store/useFormStore.ts';
-import { advancedFormSchema } from '../../forms/advanced-form-schema.ts';
+import * as schemaModule from '../../forms/advanced-form-schema.ts';
 
 const mockBase64 = 'data:image/png;base64,abc';
 
@@ -96,7 +96,9 @@ describe('UncontrolledFormAdvanced — successful submission', () => {
       confirmPassword: 'Abcdefg1!',
       image: pngFileForSubmit,
     };
-    vi.spyOn(advancedFormSchema, 'validate').mockResolvedValueOnce(validData);
+    vi.spyOn(schemaModule, 'createAdvancedFormSchema').mockReturnValueOnce({
+      validate: vi.fn().mockResolvedValueOnce(validData),
+    } as unknown as ReturnType<typeof schemaModule.createAdvancedFormSchema>);
     const onSubmit = vi.fn();
     const user = userEvent.setup();
     render(<UncontrolledFormAdvanced onSubmit={onSubmit} />);
