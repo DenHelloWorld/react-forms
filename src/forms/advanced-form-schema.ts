@@ -1,9 +1,9 @@
 import * as yup from 'yup';
 import { basicFormSchema, BASIC_FIELD_KEYS } from './basic-form-schema.ts';
 
-interface Country {
+type Country = {
   name: string;
-}
+};
 
 const matchesPassword = (
   value: string | undefined,

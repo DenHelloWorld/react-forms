@@ -3,11 +3,11 @@ import { renderHook, act } from '@testing-library/react';
 import * as yup from 'yup';
 import { useFormErrors } from '../../hooks/useFormErrors/useFormErrors.ts';
 
-interface Fields {
+type Fields = {
   [key: string]: unknown;
   name: string;
   email: string;
-}
+};
 
 describe('useFormErrors', () => {
   it('should start with no errors', () => {

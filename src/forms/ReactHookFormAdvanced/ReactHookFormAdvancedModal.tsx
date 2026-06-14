@@ -5,10 +5,10 @@ import {
   useFormStore,
 } from '../../store/useFormStore.ts';
 
-interface ReactHookFormAdvancedModalProps {
+type ReactHookFormAdvancedModalProps = {
   isOpen: boolean;
   onClose: () => void;
-}
+};
 
 const ReactHookFormAdvancedModal = ({
   isOpen,

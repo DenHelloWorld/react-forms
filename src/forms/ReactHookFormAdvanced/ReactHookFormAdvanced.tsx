@@ -11,9 +11,9 @@ import { useAdvancedForm } from './useAdvancedForm.ts';
 import FormField from '../FormField.tsx';
 import '../form.css';
 
-interface ReactHookFormAdvancedProps {
+type ReactHookFormAdvancedProps = {
   onSubmit: (data: FormSubmissionPayload) => void;
-}
+};
 
 const FIELD_IDS = createAdvancedFieldIds('rhf-adv');
 

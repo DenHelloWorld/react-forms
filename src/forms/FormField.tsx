@@ -1,12 +1,12 @@
 import { type ReactNode } from 'react';
 
-interface FormFieldProps {
+type FormFieldProps = {
   id: string;
   label: string;
   error?: string;
   children: ReactNode;
   className?: string;
-}
+};
 
 const FormField = ({
   id,

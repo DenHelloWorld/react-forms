@@ -1,10 +1,10 @@
 import { useState, useCallback, useRef } from 'react';
 
-interface UseImageToBase64Result {
+type UseImageToBase64Result = {
   convertFile: (file: File) => Promise<string>;
   isPending: boolean;
   error: string | null;
-}
+};
 
 export const useImageToBase64 = (): UseImageToBase64Result => {
   const [isPending, setIsPending] = useState(false);

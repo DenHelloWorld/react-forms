@@ -3,18 +3,18 @@ import { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 
 export type KeyboardKey = (typeof KEYBOARD_KEYS)[keyof typeof KEYBOARD_KEYS];
 
-interface ClickableReturnProps {
+type ClickableReturnProps = {
   role?: 'button';
   tabIndex?: number;
   onClick: (e: MouseEvent<HTMLElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
-}
+};
 
-interface ClickableConfig {
+type ClickableConfig = {
   onClick?: (e: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => void;
   allowedKeys?: KeyboardKey[];
   stopPropagation?: boolean;
-}
+};
 
 export const useClickableBlock = ({
   onClick,

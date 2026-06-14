@@ -21,9 +21,9 @@ import { useImageToBase64 } from '../../hooks/useImageToBase64/useImageToBase64.
 import FormField from '../FormField.tsx';
 import '../form.css';
 
-interface UncontrolledFormAdvancedProps {
+type UncontrolledFormAdvancedProps = {
   onSubmit: (data: FormSubmissionPayload) => void;
-}
+};
 
 const FIELD_IDS = createAdvancedFieldIds('uc-adv');
 

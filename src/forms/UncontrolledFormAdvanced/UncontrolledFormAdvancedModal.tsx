@@ -5,10 +5,10 @@ import {
   useFormStore,
 } from '../../store/useFormStore.ts';
 
-interface UncontrolledFormAdvancedModalProps {
+type UncontrolledFormAdvancedModalProps = {
   isOpen: boolean;
   onClose: () => void;
-}
+};
 
 const UncontrolledFormAdvancedModal = ({
   isOpen,

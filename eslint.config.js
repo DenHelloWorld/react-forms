@@ -93,6 +93,7 @@ export default tseslint.config(
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
       ],
       '@typescript-eslint/consistent-type-exports': 'error',
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       // Require explicit return types on exported functions (improves readability)
       '@typescript-eslint/explicit-module-boundary-types': 'warn',
       // Ban non-null assertions (!) – use proper null checks instead

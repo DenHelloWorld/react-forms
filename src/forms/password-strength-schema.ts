@@ -1,10 +1,10 @@
 import * as yup from 'yup';
 
-export interface PasswordRule {
+export type PasswordRule = {
   key: string;
   label: string;
   schema: yup.StringSchema;
-}
+};
 
 export const passwordStrengthRules: PasswordRule[] = [
   {

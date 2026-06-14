@@ -4,12 +4,12 @@ import { useModal } from './useModal.ts';
 import { useClickableBlock } from '../../hooks/useClickableBlock/useClickableBlock.ts';
 import './Modal.css';
 
-interface ModalProps {
+type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
   title?: string;
-}
+};
 
 const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);

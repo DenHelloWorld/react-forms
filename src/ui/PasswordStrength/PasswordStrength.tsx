@@ -1,9 +1,9 @@
 import { type PasswordRuleResult } from '../../hooks/usePasswordStrength/usePasswordStrength.ts';
 import './PasswordStrength.css';
 
-interface PasswordStrengthProps {
+type PasswordStrengthProps = {
   rules: PasswordRuleResult[];
-}
+};
 
 const PasswordStrength = ({ rules }: PasswordStrengthProps) => {
   return (

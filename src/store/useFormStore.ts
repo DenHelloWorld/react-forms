@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export interface SubmissionData {
+export type SubmissionData = {
   id: string;
   name: string;
   age: number;
@@ -9,20 +9,20 @@ export interface SubmissionData {
   country: string;
   image: string;
   createdAt: number;
-}
+};
 
-export interface CountryObject {
+export type CountryObject = {
   name: string;
   flag: string;
-}
+};
 
 export type FormSubmissionPayload = Omit<SubmissionData, 'id' | 'createdAt'>;
 
-interface FormState {
+type FormState = {
   successfulSubmissions: SubmissionData[];
   countries: CountryObject[];
   addSubmission: (data: FormSubmissionPayload) => void;
-}
+};
 
 export const useFormStore = create<FormState>((set) => ({
   successfulSubmissions: [],

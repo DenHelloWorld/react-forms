@@ -1,12 +1,12 @@
 import { useState, type InputHTMLAttributes, type Ref } from 'react';
 import './PasswordInput.css';
 
-interface PasswordInputProps extends Omit<
+type PasswordInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'type'
-> {
+> & {
   ref?: Ref<HTMLInputElement>;
-}
+};
 
 const PasswordInput = ({ className, ref, ...props }: PasswordInputProps) => {
   const [visible, setVisible] = useState(false);
