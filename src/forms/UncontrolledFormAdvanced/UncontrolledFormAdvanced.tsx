@@ -1,0 +1,301 @@
+import { useState, type SyntheticEvent, type ChangeEvent } from 'react';
+import { ValidationError } from 'yup';
+import {
+  type FormSubmissionPayload,
+  useFormStore,
+} from '../../store/useFormStore.ts';
+import {
+  createAdvancedFormSchema,
+  createAdvancedFieldIds,
+  type AdvancedFormData,
+} from '../advanced-form-schema.ts';
+import { getString } from '../basic-form-schema.ts';
+import { useFormErrors } from '../../hooks/useFormErrors/useFormErrors.ts';
+import Radio from '../../ui/Radio/Radio.tsx';
+import Checkbox from '../../ui/Checkbox/Checkbox.tsx';
+import PasswordStrength from '../../ui/PasswordStrength/PasswordStrength.tsx';
+import PasswordInput from '../../ui/PasswordInput/PasswordInput.tsx';
+import { GENDERS } from '../../consts/genders.ts';
+import { usePasswordStrength } from '../../hooks/usePasswordStrength/usePasswordStrength.ts';
+import { useImageToBase64 } from '../../hooks/useImageToBase64/useImageToBase64.ts';
+import FormField from '../FormField.tsx';
+import '../form.css';
+
+type UncontrolledFormAdvancedProps = {
+  onSubmit: (data: FormSubmissionPayload) => void;
+};
+
+const FIELD_IDS = createAdvancedFieldIds('uc-adv');
+
+const UncontrolledFormAdvanced = ({
+  onSubmit,
+}: UncontrolledFormAdvancedProps) => {
+  const countries = useFormStore((state) => state.countries);
+  const { convertFile } = useImageToBase64();
+
+  const { errors, parseYupErrors, clearErrors } =
+    useFormErrors<AdvancedFormData>();
+  const [passwordValue, setPasswordValue] = useState('');
+
+  const strength = usePasswordStrength(passwordValue);
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPasswordValue(e.target.value);
+  };
+
+  const onHandleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const ageRaw = formData.get('age');
+
+    const data = {
+      name: getString(formData.get('name')),
+      age:
+        typeof ageRaw === 'string' && ageRaw !== ''
+          ? Number(ageRaw)
+          : undefined,
+      email: getString(formData.get('email')),
+      gender: getString(formData.get('gender')),
+      terms: formData.has('terms'),
+      country: getString(formData.get('country')),
+      password: getString(formData.get('password')),
+      confirmPassword: getString(formData.get('confirmPassword')),
+      image: (() => {
+        const f = formData.get('image');
+        return f instanceof File ? f : undefined;
+      })(),
+    };
+
+    let validData: AdvancedFormData;
+    try {
+      validData = await createAdvancedFormSchema(countries).validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      if (err instanceof ValidationError) parseYupErrors(err);
+      return;
+    }
+
+    const image = await convertFile(validData.image);
+
+    onSubmit({
+      name: validData.name,
+      age: validData.age,
+      email: validData.email,
+      gender: validData.gender,
+      country: validData.country,
+      image,
+    });
+
+    clearErrors();
+    setPasswordValue('');
+    form.reset();
+  };
+
+  const fieldClass = (field: keyof AdvancedFormData) =>
+    `form__input${errors[field] ? ' form__input--error' : ''}`;
+
+  return (
+    <form
+      onSubmit={(e) => {
+        void onHandleSubmit(e);
+      }}
+      className="form"
+      noValidate
+    >
+      <div className="form__fields">
+        <FormField id={FIELD_IDS.name} label="Name" error={errors.name}>
+          <input
+            id={FIELD_IDS.name}
+            name="name"
+            type="text"
+            autoComplete="name"
+            aria-invalid={!!errors.name}
+            aria-describedby={
+              errors.name ? `${FIELD_IDS.name}-error` : undefined
+            }
+            className={fieldClass('name')}
+          />
+        </FormField>
+
+        <FormField id={FIELD_IDS.age} label="Age" error={errors.age}>
+          <input
+            id={FIELD_IDS.age}
+            name="age"
+            type="number"
+            min="0"
+            aria-invalid={!!errors.age}
+            aria-describedby={errors.age ? `${FIELD_IDS.age}-error` : undefined}
+            className={fieldClass('age')}
+          />
+        </FormField>
+
+        <FormField id={FIELD_IDS.email} label="Email" error={errors.email}>
+          <input
+            id={FIELD_IDS.email}
+            name="email"
+            type="email"
+            autoComplete="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={
+              errors.email ? `${FIELD_IDS.email}-error` : undefined
+            }
+            className={fieldClass('email')}
+          />
+        </FormField>
+
+        <fieldset
+          className="form__field form__field--radio"
+          aria-invalid={!!errors.gender}
+          aria-describedby={
+            errors.gender ? `${FIELD_IDS.gender}-error` : undefined
+          }
+        >
+          <legend className="form__label">Gender</legend>
+          <div className="form__radio-group">
+            {Object.values(GENDERS).map((g) => (
+              <label
+                key={g}
+                htmlFor={`${FIELD_IDS.gender}-${g}`}
+                className="form__radio-label"
+              >
+                <Radio
+                  id={`${FIELD_IDS.gender}-${g}`}
+                  name="gender"
+                  value={g}
+                />
+                {g}
+              </label>
+            ))}
+          </div>
+          <p
+            id={`${FIELD_IDS.gender}-error`}
+            className={`form__error${errors.gender ? ' form__error--visible' : ''}`}
+            role="alert"
+          >
+            {errors.gender}
+          </p>
+        </fieldset>
+
+        <FormField
+          id={FIELD_IDS.country}
+          label="Country"
+          error={errors.country}
+        >
+          <input
+            id={FIELD_IDS.country}
+            name="country"
+            type="text"
+            list="uc-countries-list"
+            autoComplete="off"
+            aria-invalid={!!errors.country}
+            aria-describedby={
+              errors.country ? `${FIELD_IDS.country}-error` : undefined
+            }
+            className={fieldClass('country')}
+          />
+          <datalist id="uc-countries-list">
+            {countries.map((c) => (
+              <option key={c.name} value={c.name}>
+                {c.flag} {c.name}
+              </option>
+            ))}
+          </datalist>
+        </FormField>
+
+        <FormField
+          id={FIELD_IDS.password}
+          label="Password"
+          error={errors.password}
+        >
+          <PasswordInput
+            id={FIELD_IDS.password}
+            name="password"
+            autoComplete="new-password"
+            onChange={handlePasswordChange}
+            aria-invalid={!!errors.password}
+            aria-describedby={
+              errors.password ? `${FIELD_IDS.password}-error` : undefined
+            }
+            className={fieldClass('password')}
+          />
+          <PasswordStrength rules={strength} />
+        </FormField>
+
+        <FormField
+          id={FIELD_IDS.confirmPassword}
+          label="Confirm Password"
+          error={errors.confirmPassword}
+        >
+          <PasswordInput
+            id={FIELD_IDS.confirmPassword}
+            name="confirmPassword"
+            autoComplete="new-password"
+            aria-invalid={!!errors.confirmPassword}
+            aria-describedby={
+              errors.confirmPassword
+                ? `${FIELD_IDS.confirmPassword}-error`
+                : undefined
+            }
+            className={fieldClass('confirmPassword')}
+          />
+        </FormField>
+
+        <FormField
+          id={FIELD_IDS.image}
+          label="Photo (JPG/PNG, max 2MB)"
+          error={errors.image}
+        >
+          <input
+            id={FIELD_IDS.image}
+            name="image"
+            type="file"
+            accept="image/jpeg,image/png"
+            aria-invalid={!!errors.image}
+            aria-describedby={
+              errors.image ? `${FIELD_IDS.image}-error` : undefined
+            }
+            className={fieldClass('image')}
+          />
+        </FormField>
+
+        <div className="form__field form__field--checkbox">
+          <div className="inline-flex items-center gap-2">
+            <Checkbox
+              id={FIELD_IDS.terms}
+              name="terms"
+              aria-invalid={!!errors.terms}
+              aria-describedby={
+                errors.terms ? `${FIELD_IDS.terms}-error` : undefined
+              }
+            />
+            <label
+              htmlFor={FIELD_IDS.terms}
+              className="form__label--checkbox-text cursor-pointer"
+            >
+              I accept the Terms and Conditions
+            </label>
+          </div>
+          <p
+            id={`${FIELD_IDS.terms}-error`}
+            className={`form__error${errors.terms ? ' form__error--visible' : ''}`}
+            role="alert"
+          >
+            {errors.terms}
+          </p>
+        </div>
+      </div>
+
+      <div className="form__actions">
+        <button type="submit" className="btn">
+          Submit
+        </button>
+      </div>
+    </form>
+  );
+};
+
+export default UncontrolledFormAdvanced;

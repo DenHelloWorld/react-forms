@@ -1,0 +1,56 @@
+@reference "../../index.css";
+
+.submission-list {
+  @apply mt-8 flex flex-col flex-1 overflow-hidden min-h-0;
+}
+
+.submission-list__title {
+  @apply mb-4 text-xl font-bold text-text-h;
+}
+
+.submission-list__items {
+  @apply flex flex-col gap-3 overflow-y-auto flex-1 pr-1;
+}
+
+@keyframes card-highlight {
+  0% {
+    border-color: var(--accent-secondary);
+    background-color: var(--accent-secondary-bg);
+    box-shadow: 0 0 0 2px var(--accent-secondary-glow);
+  }
+  70% {
+    border-color: var(--accent-secondary);
+    background-color: var(--accent-secondary-bg);
+    box-shadow: 0 0 0 2px var(--accent-secondary-glow);
+  }
+  100% {
+    border-color: var(--border);
+    background-color: var(--bg);
+    box-shadow: none;
+  }
+}
+
+.submission-card {
+  @apply rounded border border-border bg-bg p-4 shadow-custom flex flex-col gap-2;
+  @apply animate-[card-highlight_5s_ease-out_forwards];
+}
+
+.submission-card__row {
+  @apply flex gap-2 text-sm;
+}
+
+.submission-card__label {
+  @apply w-16 shrink-0 text-xs text-text opacity-60;
+}
+
+.submission-card__value {
+  @apply text-text;
+}
+
+.submission-card__row--image {
+  @apply items-start;
+}
+
+.submission-card__image {
+  @apply h-16 w-16 rounded object-cover;
+}

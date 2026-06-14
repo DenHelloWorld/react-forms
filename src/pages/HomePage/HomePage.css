@@ -1,0 +1,11 @@
+@reference "../../index.css";
+
+.page {
+  .page__title {
+    @apply text-accent;
+  }
+
+  .page__buttons-row {
+    @apply mt-4 flex gap-2;
+  }
+}

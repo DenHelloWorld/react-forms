@@ -1,0 +1,31 @@
+.page {
+  @apply h-screen overflow-hidden bg-bg text-text p-8 flex flex-col;
+
+  .page__title {
+    @apply text-3xl font-heading text-text-h font-bold;
+  }
+}
+
+.container {
+  @apply mx-auto w-full max-w-7xl flex flex-col flex-1 min-h-0;
+}
+
+.text-body {
+  @apply mb-4 text-text;
+}
+
+.btn {
+  @apply cursor-pointer rounded bg-accent-secondary px-4 py-2 text-white hover:opacity-90;
+}
+
+.btn:disabled {
+  @apply cursor-not-allowed opacity-50;
+}
+
+.btn--secondary {
+  @apply cursor-pointer rounded border border-accent-secondary/45 bg-accent-secondary/7 px-4 py-2 text-accent-secondary hover:bg-accent-secondary hover:text-white;
+}
+
+.btn--accent {
+  @apply cursor-pointer rounded bg-accent-secondary px-4 py-2 text-white hover:opacity-90;
+}

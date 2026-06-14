@@ -1,0 +1,33 @@
+@reference "../../index.css";
+
+.modal__backdrop {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50;
+}
+
+.modal__container {
+  @apply w-modal max-w-[90vw] max-h-[90vh] rounded-xl bg-bg shadow-custom flex flex-col border-t-[3px] border-accent-secondary;
+}
+
+.modal__header {
+  @apply flex shrink-0 items-center justify-between gap-4 border-b border-border px-6 py-4;
+}
+
+.modal__title {
+  @apply text-lg font-semibold text-accent;
+}
+
+.modal__close-btn {
+  @apply ml-auto cursor-pointer rounded p-1 text-text transition-colors duration-150 hover:text-accent-secondary hover:bg-accent-secondary/10;
+}
+
+.modal__close-icon {
+  @apply h-5 w-5;
+}
+
+.modal__body {
+  @apply flex flex-1 flex-col overflow-hidden;
+}
+
+.modal__sentinel {
+  @apply sr-only;
+}

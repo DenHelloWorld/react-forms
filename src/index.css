@@ -1,0 +1,82 @@
+@import 'tailwindcss';
+@import './styles/common.css';
+
+@theme {
+  --width-modal: 560px;
+  --max-width-modal: 560px;
+  --color-text: var(--text);
+  --color-text-h: var(--text-h);
+  --color-bg: var(--bg);
+  --color-border: var(--border);
+  --color-code-bg: var(--code-bg);
+  --color-accent: var(--accent);
+  --color-accent-bg: var(--accent-bg);
+  --color-accent-border: var(--accent-border);
+  --color-social-bg: var(--social-bg);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-error: var(--error);
+  --color-success: var(--success);
+  --font-sans: var(--sans);
+  --font-heading: var(--heading);
+  --font-mono: var(--mono);
+  --shadow-custom: var(--shadow);
+}
+
+:root {
+  --text: #303841;
+  --text-h: #1f262d;
+  --bg: #f5f5f5;
+  --border: #d5d8da;
+  --code-bg: #ebebeb;
+  --accent: #76abae;
+  --accent-bg: rgba(118, 171, 174, 0.12);
+  --accent-border: rgba(118, 171, 174, 0.4);
+  --accent-secondary: #ff5722;
+  --accent-secondary-bg: rgba(255, 87, 34, 0.08);
+  --accent-secondary-glow: rgba(255, 87, 34, 0.25);
+  --error: #e53935;
+  --success: #43a047;
+  --social-bg: rgba(213, 216, 218, 0.5);
+  --shadow:
+    rgba(48, 56, 65, 0.12) 0 10px 15px -3px,
+    rgba(48, 56, 65, 0.06) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #b4bbc3;
+    --text-h: #f5f5f5;
+    --bg: #303841;
+    --border: #49525c;
+    --code-bg: #3a444d;
+    --accent: #76abae;
+    --accent-bg: rgba(118, 171, 174, 0.15);
+    --accent-border: rgba(118, 171, 174, 0.5);
+    --accent-secondary: #ff5722;
+    --error: #ef5350;
+    --success: #66bb6a;
+    --social-bg: rgba(58, 68, 77, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+}

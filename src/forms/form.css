@@ -1,0 +1,75 @@
+@reference "../index.css";
+
+.form {
+  @apply flex flex-1 flex-col overflow-hidden;
+}
+
+.form__fields {
+  @apply flex flex-col gap-4 overflow-y-auto flex-1 px-6 py-6 w-full max-w-modal mx-auto;
+}
+
+.form__field {
+  @apply flex flex-col gap-2;
+}
+
+.form__field--radio {
+  @apply flex flex-col gap-4;
+}
+
+.form__field--radio legend {
+  @apply float-none p-0 mb-2;
+}
+
+.form__label {
+  @apply text-xs text-text;
+}
+
+.form__input {
+  @apply rounded border border-border bg-bg px-3 py-2 text-text outline-none transition-colors focus:border-accent;
+}
+
+.form__input[type='number']::-webkit-inner-spin-button,
+.form__input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form__input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.form__input--error {
+  @apply border-error;
+}
+
+.form__error {
+  @apply text-sm text-error min-h-5 invisible;
+}
+
+.form__error--visible {
+  @apply visible;
+}
+
+.form__radio-group {
+  @apply flex gap-4;
+}
+
+.form__radio-label {
+  @apply flex cursor-pointer items-center gap-2 text-text;
+}
+
+.form__field--checkbox {
+  @apply flex-row flex-wrap items-center gap-x-2;
+}
+
+.form__field--checkbox .form__error {
+  @apply basis-full;
+}
+
+.form__label--checkbox-text {
+  @apply cursor-pointer text-text;
+}
+
+.form__actions {
+  @apply shrink-0 border-t border-border bg-bg px-6 py-4 flex justify-end;
+}
