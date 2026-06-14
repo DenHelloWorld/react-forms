@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { GENDERS } from '../consts/genders.const.ts';
+import { GENDERS } from '../consts/genders.ts';
 
 const isValidEmail = (email: string): boolean => {
   const parts = email.split('@');

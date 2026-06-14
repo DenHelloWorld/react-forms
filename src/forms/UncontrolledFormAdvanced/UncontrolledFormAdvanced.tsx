@@ -15,7 +15,7 @@ import Radio from '../../ui/Radio/Radio.tsx';
 import Checkbox from '../../ui/Checkbox/Checkbox.tsx';
 import PasswordStrength from '../../ui/PasswordStrength/PasswordStrength.tsx';
 import PasswordInput from '../../ui/PasswordInput/PasswordInput.tsx';
-import { GENDERS } from '../../consts/genders.const.ts';
+import { GENDERS } from '../../consts/genders.ts';
 import { usePasswordStrength } from '../../hooks/usePasswordStrength/usePasswordStrength.ts';
 import { useImageToBase64 } from '../../hooks/useImageToBase64/useImageToBase64.ts';
 import FormField from '../FormField.tsx';

@@ -6,7 +6,7 @@ import PasswordStrength from '../../ui/PasswordStrength/PasswordStrength.tsx';
 import PasswordInput from '../../ui/PasswordInput/PasswordInput.tsx';
 import { createAdvancedFieldIds } from '../advanced-form-schema.ts';
 import { setAsNumber } from '../basic-form-schema.ts';
-import { GENDERS } from '../../consts/genders.const.ts';
+import { GENDERS } from '../../consts/genders.ts';
 import { useAdvancedForm } from './useAdvancedForm.ts';
 import FormField from '../FormField.tsx';
 import '../form.css';

@@ -7,7 +7,7 @@ import {
   type KeyboardEvent,
 } from 'react';
 import { useClickableBlock } from '../../hooks/useClickableBlock/useClickableBlock.ts';
-import { KEYBOARD_KEYS } from '../../consts/keyboard-keys.const.ts';
+import { KEYBOARD_KEYS } from '../../consts/keyboard-keys.ts';
 import { PortalContext } from '../../contexts/PortalContext/PortalContext.tsx';
 
 export const useModal = ({
